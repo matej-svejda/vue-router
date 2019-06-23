@@ -24,7 +24,7 @@ const Time = Date
 let _key: string = genKey()
 
 function genKey (): string {
-  return Time.now().toFixed(3)
+  return Time.now().toString()
 }
 
 export function getStateKey () {

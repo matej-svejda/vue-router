@@ -1662,7 +1662,7 @@ const Time = Date;
 let _key = genKey();
 
 function genKey () {
-  return Time.now().toFixed(3)
+  return Time.now().toString()
 }
 
 function getStateKey () {

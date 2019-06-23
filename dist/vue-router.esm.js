@@ -1688,7 +1688,7 @@ var Time = Date;
 var _key = genKey();
 
 function genKey () {
-  return Time.now().toFixed(3)
+  return Time.now().toString()
 }
 
 function getStateKey () {
