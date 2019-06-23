@@ -1,5 +1,5 @@
 /*!
-  * vue-router v3.0.5
+  * vue-router v3.0.6
   * (c) 2019 Evan You
   * @license MIT
   */
@@ -1683,9 +1683,7 @@ var supportsPushState = inBrowser && (function () {
 })();
 
 // use User Timing api (if present) for more accurate key precision
-var Time = inBrowser && window.performance && window.performance.now
-  ? window.performance
-  : Date;
+var Time = Date;
 
 var _key = genKey();
 
@@ -1770,7 +1768,7 @@ function resolveAsyncComponents (matched) {
           match.components[key] = resolvedDef;
           pending--;
           if (pending <= 0) {
-            next(to);
+            next();
           }
         });
 
@@ -2662,7 +2660,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '3.0.5';
+VueRouter.version = '3.0.6';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
