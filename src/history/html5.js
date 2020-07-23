@@ -33,7 +33,7 @@ export class HTML5History extends History {
         if (supportsScroll) {
           handleScroll(router, route, current, true)
         }
-      })
+      }, null, true)
     })
   }
 
@@ -56,7 +56,7 @@ export class HTML5History extends History {
       replaceState(cleanPath(this.base + route.fullPath))
       handleScroll(this.router, route, fromRoute, false)
       onComplete && onComplete(route)
-    }, onAbort)
+    }, onAbort, true)
   }
 
   ensureURL (push?: boolean) {

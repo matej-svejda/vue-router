@@ -61,8 +61,11 @@ export class History {
     this.errorCbs.push(errorCb)
   }
 
-  transitionTo (location: RawLocation, onComplete?: Function, onAbort?: Function) {
-    const route = this.router.match(location, this.current)
+  transitionTo (location: RawLocation, onComplete?: Function, onAbort?: Function, isReplace?: Boolean) {
+	 const route = this.router.match(location, this.current)
+	 if (isReplace) {
+		 route.isReplace = true
+	 }
     this.confirmTransition(route, () => {
       this.updateRoute(route)
       onComplete && onComplete(route)

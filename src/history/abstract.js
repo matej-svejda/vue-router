@@ -25,7 +25,7 @@ export class AbstractHistory extends History {
     this.transitionTo(location, route => {
       this.stack = this.stack.slice(0, this.index).concat(route)
       onComplete && onComplete(route)
-    }, onAbort)
+    }, onAbort, true)
   }
 
   go (n: number) {

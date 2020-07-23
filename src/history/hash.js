@@ -40,7 +40,7 @@ export class HashHistory extends History {
         if (!supportsPushState) {
           replaceHash(route.fullPath)
         }
-      })
+      }, null, true)
     })
   }
 
