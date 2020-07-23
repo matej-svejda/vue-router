@@ -1,6 +1,6 @@
 /*!
   * vue-router v3.0.6
-  * (c) 2019 Evan You
+  * (c) 2020 Evan You
   * @license MIT
   */
 'use strict';
@@ -1883,10 +1883,13 @@ History.prototype.onError = function onError (errorCb) {
   this.errorCbs.push(errorCb);
 };
 
-History.prototype.transitionTo = function transitionTo (location, onComplete, onAbort) {
-    var this$1 = this;
+History.prototype.transitionTo = function transitionTo (location, onComplete, onAbort, isReplace) {
+	 var this$1 = this;
 
-  var route = this.router.match(location, this.current);
+	 var route = this.router.match(location, this.current);
+	 if (isReplace) {
+		 route.isReplace = true;
+	 }
   this.confirmTransition(route, function () {
     this$1.updateRoute(route);
     onComplete && onComplete(route);
@@ -2180,7 +2183,7 @@ var HTML5History = /*@__PURE__*/(function (History$$1) {
         if (supportsScroll) {
           handleScroll(router, route, current, true);
         }
-      });
+      }, null, true);
     });
   }
 
@@ -2213,7 +2216,7 @@ var HTML5History = /*@__PURE__*/(function (History$$1) {
       replaceState(cleanPath(this$1.base + route.fullPath));
       handleScroll(this$1.router, route, fromRoute, false);
       onComplete && onComplete(route);
-    }, onAbort);
+    }, onAbort, true);
   };
 
   HTML5History.prototype.ensureURL = function ensureURL (push) {
@@ -2279,7 +2282,7 @@ var HashHistory = /*@__PURE__*/(function (History$$1) {
         if (!supportsPushState) {
           replaceHash(route.fullPath);
         }
-      });
+      }, null, true);
     });
   };
 
@@ -2420,7 +2423,7 @@ var AbstractHistory = /*@__PURE__*/(function (History$$1) {
     this.transitionTo(location, function (route) {
       this$1.stack = this$1.stack.slice(0, this$1.index).concat(route);
       onComplete && onComplete(route);
-    }, onAbort);
+    }, onAbort, true);
   };
 
   AbstractHistory.prototype.go = function go (n) {

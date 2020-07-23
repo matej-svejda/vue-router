@@ -1,6 +1,6 @@
 /*!
   * vue-router v3.0.6
-  * (c) 2019 Evan You
+  * (c) 2020 Evan You
   * @license MIT
   */
 /*  */
@@ -1870,8 +1870,11 @@ class History {
     this.errorCbs.push(errorCb);
   }
 
-  transitionTo (location, onComplete, onAbort) {
-    const route = this.router.match(location, this.current);
+  transitionTo (location, onComplete, onAbort, isReplace) {
+	 const route = this.router.match(location, this.current);
+	 if (isReplace) {
+		 route.isReplace = true;
+	 }
     this.confirmTransition(route, () => {
       this.updateRoute(route);
       onComplete && onComplete(route);
@@ -2163,7 +2166,7 @@ class HTML5History extends History {
         if (supportsScroll) {
           handleScroll(router, route, current, true);
         }
-      });
+      }, null, true);
     });
   }
 
@@ -2186,7 +2189,7 @@ class HTML5History extends History {
       replaceState(cleanPath(this.base + route.fullPath));
       handleScroll(this.router, route, fromRoute, false);
       onComplete && onComplete(route);
-    }, onAbort);
+    }, onAbort, true);
   }
 
   ensureURL (push) {
@@ -2244,7 +2247,7 @@ class HashHistory extends History {
         if (!supportsPushState) {
           replaceHash(route.fullPath);
         }
-      });
+      }, null, true);
     });
   }
 
@@ -2372,7 +2375,7 @@ class AbstractHistory extends History {
     this.transitionTo(location, route => {
       this.stack = this.stack.slice(0, this.index).concat(route);
       onComplete && onComplete(route);
-    }, onAbort);
+    }, onAbort, true);
   }
 
   go (n) {
